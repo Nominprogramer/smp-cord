@@ -1,4 +1,20 @@
 import discord
+import minestat
+
+def ServerStatus() -> object:
+    ms = minestat.MineStat("64.227.162.110", 25565)
+    # print(ms.online)
+    if ms.online == True:
+        return True
+    else:
+        return False
+
+
+def StartServer():
+    pass
+
+def StopServer():
+    pass
 
 
 class MyClient(discord.Client):
@@ -7,15 +23,20 @@ class MyClient(discord.Client):
 
     # noinspection PyMethodMayBeStatic
     async def on_message(self, message):
-        print('Message from {0.author}: {0.content}'.format(message))
         if message.content.startswith("$", 0):
-            print("Command")
-
             if message.content == "$start":
-                print("Attempting to start server")
+                await message.channel.send("Attempting to start server")
+                if ServerStatus():
+                    await message.channel.send("Server is already online :D")
+                else:
+                    StartServer()
 
             elif message.content == "$stop":
-                print("Attempting to stop server")
+                await message.channel.send("Attempting to stop server")
+                if not ServerStatus():
+                    await message.channel.send("Server is already Offline")
+                else:
+                    StopServer()
 
 
 client = MyClient()
