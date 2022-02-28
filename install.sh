@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-python3 -m pip instal discordpy
+python3 -m pip install discordpy
