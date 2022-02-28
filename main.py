@@ -11,32 +11,44 @@ def ServerStatus() -> object:
 
 
 def StartServer():
-    pass
-
+    if start_msg.find(start_passwd) != -1:
+                   print(str(message.author) + "has passed auth , Starting Server!")
 def StopServer():
-    pass
+    if message.content.startswith('$stop'):
+            if stop_msg.find(stop_passwd) != -1:
+                   print(str(message.author) + "has passed auth , Starting Server!")
 
+start_passwd = ""
+stop_passwd = ""
+client = discord.Client()
 
-class MyClient(discord.Client):
-    async def on_ready(self):
-        print('Logged on as {0}!'.format(self.user))
+@client.event
+async def on_ready():
+        print('We have logged in as {0.user}'.format(client))
 
-    # noinspection PyMethodMayBeStatic
-    async def on_message(self, message):
-        if message.content.startswith("$", 0):
-            if message.content == "$start":
+@client.event
+async def on_message(message):
+        if message.author == client.user:
+                return
+
+        if message.content.startswith('$hello'):
+                await message.channel.send('Hello!')
+
+        if message.content.startswith('$start'):
+               start_msg = message.content
                 await message.channel.send("Attempting to start server")
                 if ServerStatus():
                     await message.channel.send("Server is already online :D")
                 else:
                     StartServer()
 
-            elif message.content == "$stop":
-                await message.channel.send("Attempting to stop server")
-                if not ServerStatus():
-                    await message.channel.send("Server is already Offline")
-                else:
-                    StopServer()
+        elif message.content == "$stop":
+             stop_msg = message.content
+             await message.channel.send("Attempting to stop server")
+             if not ServerStatus():
+                 await message.channel.send("Server is already Offline")
+             else:
+                 StopServer()
 
 
 client = MyClient()

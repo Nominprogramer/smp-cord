@@ -1,3 +1,14 @@
-# mc-server-bot
-## A bot to control a minecraft server
+# smp-cord
+## A bot template control a minecraft servers on discord
 
+# Installation
+
+    git clone https://github.com/IronLung127/smp-cord.git
+    ./install.sh
+
+# Setup
+
+1. Make an application at  [Discord Developer Portal](https://discord.com/developers/applications)
+2. Copy over the key and replace it in [main.py](https://github.com/IronLung127/smp-cord/blob/dev/main.py)
+
+        client.run('your token here')  
