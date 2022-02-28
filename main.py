@@ -1,7 +1,7 @@
 import discord
 
-start_passwd = "sudoStartServer"
-stop_passwd = "sudoStopServer"
+start_passwd = ""
+stop_passwd = ""
 client = discord.Client()
 
 @client.event
