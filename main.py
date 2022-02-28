@@ -1,5 +1,13 @@
 import discord
 import minestat
+import logging
+
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
+
 
 def ServerStatus() -> object:
     ms = minestat.MineStat("64.227.162.110", 25565)
@@ -11,15 +19,11 @@ def ServerStatus() -> object:
 
 
 def StartServer():
-    if start_msg.find(start_passwd) != -1:
-                   print(str(message.author) + "has passed auth , Starting Server!")
-def StopServer():
-    if message.content.startswith('$stop'):
-            if stop_msg.find(stop_passwd) != -1:
-                   print(str(message.author) + "has passed auth , Starting Server!")
+    print("Stopping Server on the request of" + sender)
 
-start_passwd = ""
-stop_passwd = ""
+def StopServer():
+    print("Starting Server on the request of" + sender)
+    
 client = discord.Client()
 
 @client.event
@@ -28,6 +32,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+
+        sender = None
+
         if message.author == client.user:
                 return
 
@@ -35,7 +42,8 @@ async def on_message(message):
                 await message.channel.send('Hello!')
 
         if message.content.startswith('$start'):
-               start_msg = message.content
+                sender = message.author
+                logger.debug(message)
                 await message.channel.send("Attempting to start server")
                 if ServerStatus():
                     await message.channel.send("Server is already online :D")
@@ -43,7 +51,7 @@ async def on_message(message):
                     StartServer()
 
         elif message.content == "$stop":
-             stop_msg = message.content
+             sender = message.author
              await message.channel.send("Attempting to stop server")
              if not ServerStatus():
                  await message.channel.send("Server is already Offline")
@@ -51,5 +59,4 @@ async def on_message(message):
                  StopServer()
 
 
-client = MyClient()
 client.run('OTQwMTAzOTkzMzQwODY2NjUx.YgCiEg._H0L3cFSYsmDhax4uXndcYSDLWg')
