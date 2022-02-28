@@ -1,6 +1,7 @@
 import discord
 
-start_paswd = "sudoStartServer"
+start_passwd = "sudoStartServer"
+stop_passwd = "sudoStopServer"
 client = discord.Client()
 
 @client.event
@@ -17,8 +18,12 @@ async def on_message(message):
 
         if message.content.startswith('$start'):
                start_msg = message.content
-               if start_msg.find(start_paswd) != -1:
-                   print(message.author)
+               if start_msg.find(start_passwd) != -1:
+                   print(str(message.author) + "has passed auth , Starting Server!")
+        if message.content.startswith('$stop'):
+                     start_msg = message.content
+                     if start_msg.find(stop_passwd) != -1:
+                                 print(str(message.author) + "has passed auth , Starting Server!")
 
 
 
