@@ -8,7 +8,6 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-
 def ServerStatus() -> object:
     ms = minestat.MineStat("64.227.162.110", 25565)
     # print(ms.online)
@@ -17,13 +16,6 @@ def ServerStatus() -> object:
     else:
         return False
 
-
-def StartServer():
-    print("Stopping Server on the request of" + sender)
-
-def StopServer():
-    print("Starting Server on the request of" + sender)
-    
 client = discord.Client()
 
 @client.event
@@ -33,7 +25,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
 
-        sender = None
+        sender = str(message.author)
 
         if message.author == client.user:
                 return
@@ -42,13 +34,12 @@ async def on_message(message):
                 await message.channel.send('Hello!')
 
         if message.content.startswith('$start'):
-                sender = message.author
-                logger.debug(message)
+                logger.debug(message.author)
                 await message.channel.send("Attempting to start server")
                 if ServerStatus():
                     await message.channel.send("Server is already online :D")
                 else:
-                    StartServer()
+                    await message.channel.send("Stopping Server on the request of" + sender)
 
         elif message.content == "$stop":
              sender = message.author
@@ -56,7 +47,6 @@ async def on_message(message):
              if not ServerStatus():
                  await message.channel.send("Server is already Offline")
              else:
-                 StopServer()
-
+                 print("Starting Server on the request of" + sender)
 
 client.run('OTQwMTAzOTkzMzQwODY2NjUx.YgCiEg._H0L3cFSYsmDhax4uXndcYSDLWg')
