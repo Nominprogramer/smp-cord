@@ -6,6 +6,9 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         print('Message from {0.author}: {0.content}'.format(message))
+        if (message.content.startswith("$", 0)):
+            print("COmmannd")
+            
 
 client = MyClient()
-client.run('OTQwMTAzOTkzMzQwODY2NjUx.YgCiEg.ghAhy2WxDLy1x4NGLL0k73s2pnU')
+client.run('OTQwMTAzOTkzMzQwODY2NjUx.YgCiEg._H0L3cFSYsmDhax4uXndcYSDLWg')
