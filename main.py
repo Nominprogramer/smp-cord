@@ -63,4 +63,4 @@ async def on_message(message):
              else:
                  print("Stopping Server on the request of" + sender)
 
-client.run('OTQwMTAzOTkzMzQwODY2NjUx.YgCiEg._H0L3cFSYsmDhax4uXndcYSDLWg')
+client.run('')
