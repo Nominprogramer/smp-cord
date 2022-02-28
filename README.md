@@ -1,4 +1,4 @@
-# mc-server-bot
+# smp-cord
 ## A bot template control a minecraft servers on discord
 
 # Installation
