@@ -66,4 +66,4 @@ async def on_message(message):
             log("discord.log", sender + ', ')
 
 
-client.run('OTQwMTAzOTkzMzQwODY2NjUx.YgCiEg._H0L3cFSYsmDhax4uXndcYSDLWg')
+client.run('')
