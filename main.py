@@ -1,6 +1,6 @@
-import discord
-import minestat
-import os.path
+import discord #discord.py
+import minestat #simple server statistics
+import os.path #logging
 
 
 def ServerStatus() -> object:
